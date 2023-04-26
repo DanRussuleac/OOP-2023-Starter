@@ -71,7 +71,7 @@ public class DANI extends PApplet {
 		textSize(20);
 		textAlign(CENTER, CENTER);
 	
-		float lineHeight = height / 18;
+		float lineHeight = height / 30;
 		float yOffset = (height - lineHeight * sonnet.length) / 2;
 	
 		for (int i = 0; i < sonnet.length; i++) {
