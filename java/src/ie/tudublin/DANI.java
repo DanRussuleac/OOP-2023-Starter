@@ -109,6 +109,19 @@ public class DANI extends PApplet {
 		}
 	}
 
-	 
+	public Word findWord(String str) {
+		for (Word wordObj : model) {
+			if (wordObj.getWord().equals(str)) {
+				return wordObj;
+			}
+		}
+		return null;
+	}
+
+	public void printModel() {
+		for (Word wordObj : model) {
+			println(wordObj.toString());
+		}
+	}
 
 }
