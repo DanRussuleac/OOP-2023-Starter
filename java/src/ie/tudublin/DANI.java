@@ -71,7 +71,7 @@ public class DANI extends PApplet {
 		textSize(20);
 		textAlign(CENTER, CENTER);
 	
-		float lineHeight = height / 30;
+		float lineHeight = height / 18;
 		float yOffset = (height - lineHeight * sonnet.length) / 2;
 	
 		for (int i = 0; i < sonnet.length; i++) {
@@ -80,21 +80,35 @@ public class DANI extends PApplet {
 	}
 	
 	
-	
+	public void loadFile(String filename) {
+		String[] lines = loadStrings(filename);
+		String prevWord = null;
 
-	public Word findWord(String str) {
-		for (Word wordObj : model) {
-			if (wordObj.getWord().equals(str)) {
-				return wordObj;
+		for (String line : lines) {
+			String[] words = split(line, ' ');
+
+			for (String w : words) {
+				w = w.replaceAll("[^\\w\\s]", "").toLowerCase();
+
+				if (prevWord != null) {
+					Word wordObj = findWord(prevWord);
+					if (wordObj == null) {
+						wordObj = new Word(prevWord);
+						model.add(wordObj);
+					}
+
+					Follow followObj = wordObj.findFollow(w);
+					if (followObj == null) {
+						wordObj.addFollow(new Follow(w, 1));
+					} else {
+						followObj.incrementCount();
+					}
+				}
+				prevWord = w;
 			}
 		}
-		return null;
 	}
 
-	public void printModel() {
-		for (Word wordObj : model) {
-			println(wordObj.toString());
-		}
-	}
+	 
 
 }
